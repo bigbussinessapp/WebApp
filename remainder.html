@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reminder</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+      }
+      /* input:not([type="button"]) {
+        border: none;
+        outline: none;
+        display: block;
+        padding-bottom: 10px;
+      } */
+      input,
+      p {
+        display: block;
+      }
+      button {
+        outline: none;
+        border: none;
+        background-color: black;
+        color: white;
+        /* margin-right: 3px; */
+      }
+      .container {
+        display: flex;
+      }
+      .reminder-container {
+        border: 2px solid black;
+        display: flex;
+        margin-right: 10px;
+        padding-right: 10px;
+      }
+      .reminder-card {
+        border: 1px solid black;
+        margin: 10px 0px 10px 10px;
+        padding: 10px;
+        /* width: 159.95px; */
+      }
+      .add-reminder {
+        border: none;
+        margin-right: 10px;
+      }
+      .add-reminder__button {
+        border-radius: 55%;
+        background-color: black;
+        font-size: xx-large;
+        width: 100px;
+        height: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="reminder-container">
+        <div class="reminder-card">
+          <!-- <form action="" class="add-reminder__form">
+          <label for="name" class="add-reminder__input">Name</label>
+          <input type="text" name="name" value="Name" readonly />
+          <label for="amount" class="add-reminder__input">Amount</label>
+          <input type="text" name="amount" value="0.0" readonly />
+          <label for="duedate" class="add-reminder__input">Due Date</label>
+          <input type="text" name="duedate" value="12/01/2021" readonly />
+        </form> -->
+          <p>Name: NAME</p>
+          <p>Amount: 0.0</p>
+          <p>Due Date: 12/01/2021</p>
+          <button onclick="deleteReminder()">DELETE</button>
+          <button onclick="editReminder()">EDIT</button>
+        </div>
+      </div>
+      <div class="add-reminder">
+        <button
+          class="add-reminder__button"
+          title="ADD A NEW REMINDER"
+          onclick="addReminder()"
+        >
+          ➕
+        </button>
+      </div>
+    </div>
+  </body>
+  <script>
+    //   create reminder onclick of + button
+    var r_container = document.querySelector(".reminder-container");
+    function addReminder() {
+      // display form with empty text fields
+      var new_reminder = document.createElement("div");
+      new_reminder.classList.add("reminder-card", "new-reminder");
+      r_container.append(new_reminder);
+      var l_name = document.createElement("label");
+      l_name.innerText = "Name";
+      var i_name = document.createElement("input");
+      var l_amount = document.createElement("label");
+      l_amount.innerText = "Amount";
+      var i_amount = document.createElement("input");
+      var l_duedate = document.createElement("label");
+      l_duedate.innerText = "Due Date";
+      var i_duedate = document.createElement("input");
+      var delete_btn = document.createElement("button");
+      delete_btn.innerText = "DELETE";
+      delete_btn.setAttribute("onclick", "deleteReminder()");
+      var save_btn = document.createElement("button");
+      save_btn.innerText = "SAVE";
+      save_btn.setAttribute("onclick", "saveReminder()");
+      new_reminder.append(
+        l_name,
+        i_name,
+        l_amount,
+        i_amount,
+        l_duedate,
+        i_duedate,
+        delete_btn,
+        save_btn
+      );
+    }
+    function deleteReminder() {
+      var reminder = document.querySelector(".reminder-card");
+      r_container.removeChild(reminder);
+    }
+    function saveReminder() {
+      // card - 3p's and 2 btn's
+      var new_reminder = document.createElement("div");
+      new_reminder.classList.add("reminder-card");
+      r_container.append(new_reminder);
+      var name = document.createElement("p");
+      name.innerText = "Name: " + "name".toUpperCase();
+      var amount = document.createElement("p");
+      amount.innerText = "Amount: " + "123.321".toUpperCase();
+      var duedate = document.createElement("p");
+      duedate.innerText = "Due Date: " + "01/01/2021".toUpperCase();
+      new_reminder.append(name, amount, duedate);
+      document.querySelector(".new-reminder").style.display = "none";
+    }
+  </script>
+</html>
