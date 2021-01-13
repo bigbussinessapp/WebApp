@@ -1,3 +1,7 @@
+
+
+
+
 var ipname = document.getElementById('iptraname');
 var amt = document.getElementById('traamt');
 var status = document.getElementById('traptmsts');
@@ -121,17 +125,7 @@ var key = Object.keys(getdata)
     var data = Date.getFormattedDateDiff(start, end).split(',');
    console.log(data)
 
-   if(data[0]!==0){//years ago
-
-   }else if(data[1]!==0){//months ago
-
-   }else if(data[2]!==0){//weeks ago
-
-    }else if(data[3]!==0){//days ago
-
-    }else{//today
-
-    }
+  Bigbiz.finance.history.create(data,e)
 
   }
   
