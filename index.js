@@ -35,9 +35,10 @@ function getlocaldate(date){
       'date':""
   }
 addinvoice.addEventListener('click',function () {
-   
-var date = getlocaldate(new Date())[0]
-var id = getlocaldate(new Date())[1]
+ 
+var date = document.getElementById('start').value.split('-').reverse().join('-')+' '+new Date().getHours()+':'+new Date().getMinutes()+':'+new Date().getSeconds()
+var id = getlocaldate(new Date(date))[1]
+console.log(date,id)
 
     if(ipname.value.length>0){
         if(amt.value.length>0){
@@ -72,13 +73,13 @@ var id = getlocaldate(new Date())[1]
 });
 
 $(function() {
+    
     if(window.localStorage.getItem('data')!==null){
         getdata = JSON.parse(window.localStorage.getItem('data'))
     }
 
      
 var e=[]
-console.log(getdata)
 var key = Object.keys(getdata)
 
   for (let index = 0; index < key.length; index++) {
@@ -99,6 +100,35 @@ var key = Object.keys(getdata)
     var element = sorted[index];
    
    calculateInterval(element);
+   if(index==sorted.length-1){
+       var arr = Object.keys(Bigbiz.domjson);
+
+arr.sort((a,b)=>b.localeCompare(a))
+var main = document.getElementById('accordion');
+var zz = arr.reverse();
+for (let index = 0; index < zz.length; index++) {
+    var element = zz[index-1];
+    var element1 = zz[index];
+    if(element!==undefined){
+        if(Bigbiz.domjson[element1]!==undefined){
+            if(document.getElementById(Bigbiz.domjson[element1].id)==null){
+                main.append(Bigbiz.domjson[element1])
+            }else{
+                document.getElementById(Bigbiz.domjson[element1].id).childNodes[1].append(Bigbiz.domjson[element1].childNodes[1].childNodes[0])
+            }
+
+        }
+      
+    }else{
+        main.prepend(Bigbiz.domjson[element1])
+    }
+  
+   
+    
+    
+}
+
+   }
 }
 
 
@@ -123,7 +153,7 @@ var key = Object.keys(getdata)
      var start = new Date(),
          end   = new Date(e.date.split('-').reverse().join('-'));
     var data = Date.getFormattedDateDiff(start, end).split(',');
-   console.log(data)
+   //console.log(data)
 
   Bigbiz.finance.history.create(data,e)
 

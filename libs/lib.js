@@ -1,68 +1,79 @@
+var sortarray={};
+
 function Bigbiz(){
+    this.domjson={};
 
     this.finance={}
     this.finance.history={}
 
     this.finance.history.create=(data,e)=>{
         if(data[0]!=='0'){//years ago
-            if(data[3].replaceAll('-','')=='1'){
-                var aa = '1_year_ago'
+            if(data[0].replaceAll('-','')=='1'){
+                var aa = '_year_ago1'
                 var bb = '1 year ago'
             }else{
-                var aa = data[3].replaceAll('-','')+'_years_ago'
-                var bb = data[3].replaceAll('-','')+' years ago'
+                var aa = '_years_ago'+data[0].replaceAll('-','')
+                var bb = data[0].replaceAll('-','')+' years ago'
                 
             }
-             this.finance.history.UI(aa,bb,'','',e)
+            sortarray['y']=data[0]
+            this.finance.history.UI(aa,bb,'','',e)
 
         }else if(data[1]!=='0'){//months ago
            
-            if(data[3].replaceAll('-','')=='1'){
-                var aa = '1_month_ago'
+            if(data[1].replaceAll('-','')=='1'){
+                var aa = '_xmonth_ago1'
                 var bb = '1 month ago'
             }else{
-                var aa = data[3].replaceAll('-','')+'_months_ago'
-                var bb = data[3].replaceAll('-','')+' months ago'
+                var aa = '_xmonths_ago'+data[1].replaceAll('-','')
+                var bb = data[1].replaceAll('-','')+' months ago'
                 
             }
+            sortarray['m']=data[1]
              this.finance.history.UI(aa,bb,'','',e)
+             
      
         }else if(data[2]!=='0'){//weeks ago
             
 
-            if(data[3].replaceAll('-','')=='1'){
-                var aa = '1_week_ago'
+            if(data[2].replaceAll('-','')=='1'){
+                var aa = '_week_ago1'
                 var bb = '1 week ago'
             }else{
-                var aa = data[3].replaceAll('-','')+'_weeks_ago'
-                var bb = data[3].replaceAll('-','')+' weeks ago'
+                var aa = '_weeks_ago'+data[2].replaceAll('-','')
+                var bb = data[2].replaceAll('-','')+' weeks ago'
                 
             }
+            sortarray['w']=data[2]
+
              this.finance.history.UI(aa,bb,'','',e)
      
          }else if(data[3]!=='0'){//days ago
             if(data[3].replaceAll('-','')=='1'){
-                var aa = '1_day_ago'
+                var aa = '_day_ago1'
                 var bb = 'Yesterday'
             }else{
-                var aa = data[3].replaceAll('-','')+'_days_ago'
+                var aa = '_days_ago'+data[3].replaceAll('-','')
                 var bb = data[3].replaceAll('-','')+' days ago'
                 
             }
+            sortarray['d']=data[3]
+
              this.finance.history.UI(aa,bb,'','',e)
 
            
-         }else{//today
+         }else if(data[4]!=='0'){//today
+            sortarray['td']=data[4]
             
-            this.finance.history.UI('Today0','Today','collapsed','show',e)
+            this.finance.history.UI('_aToday0','Today','collapsed','show',e)
          }
 
     }
 
     this.finance.history.UI=(maincardid,daytext, class1,class2,e)=>{//5days,5days ago,collapsed,show,tradata
 
-        var main = document.getElementById('accordion');
-            var q = document.getElementById('card'+maincardid);
+        
+            var q = document.getElementById(maincardid+'card');
             if(q==null){
                 
                 var a=document.createElement('div');
@@ -98,6 +109,7 @@ function Bigbiz(){
                         g.setAttribute('class','card-body');
                         f.append(g);
                         a.append(f)
+                        
                         q=a;
                 
             }
@@ -156,11 +168,101 @@ function Bigbiz(){
                     j.append(p)
                     i.append(j)
                     h.prepend(i)
+                  
+if(Bigbiz.domjson[q.id]==undefined){
+    Bigbiz.domjson[q.id]=q
+    
+}else{
 
-                    console.log(q)
-     main.prepend(q)
+    Bigbiz.domjson[q.id].childNodes[1].childNodes[0].append(q.childNodes[1].childNodes[0].childNodes[0])
+
+}
+  
 
     }
 
 }
 var Bigbiz= new Bigbiz();
+/*
+var f = {'11025548':{'name':'vishva',
+                'amt':'400',
+                'status':'3',
+                'mode':'icici',
+                's':0,
+                'date':"12-01-2021",
+                'time':'20:06:13',
+                'id':'11025548'
+        },
+        '544534656':{
+            'name':'asana',
+            'amt':'2000',
+            'status':'1',
+            'mode':'sbi',
+            's':1,
+            'date':'12-01-2021',
+            'time':'10:05:10',
+            'id':'11025548'
+        },
+        '15412574':{
+            'name':'tejash',
+            'amt':'356',
+            'status':'2',
+            'mode':'Axis',
+            's':1,
+            'date':'13-01-2021',
+            'time':'13:05:10',
+            'id':'15412574'
+        },
+        '1':{
+            'name':'arryan',
+            'amt':'20',
+            'status':'2',
+            'mode':'American express',
+            's':1,
+            'date':'13-01-2021',
+            'time':'02:05:10',
+            'id':'1'
+        },
+        '2':{
+            'name':'rohith',
+            'amt':'64',
+            'status':'2',
+            'mode':'Paytm',
+            's':1,
+            'date':'06-01-2021',
+            'time':'02:05:10',
+            'id':'2'
+        },
+        '3':{
+            'name':'surya',
+            'amt':'54',
+            'status':'2',
+            'mode':'upi',
+            's':1,
+            'date':'20-12-2020',
+            'time':'09:30:10',
+            'id':'3'
+        },
+        '4':{
+            'name':'vasanth',
+            'amt':'605',
+            'status':'2',
+            'mode':'Dcc',
+            's':1,
+            'date':'04-06-2020',
+            'time':'02:05:10',
+            'id':'4'
+        },
+        '5':{
+            'name':'parimala',
+            'amt':'2540',
+            'status':'2',
+            'mode':'APGVB',
+            's':1,
+            'date':'13-01-2020',
+            'time':'04:05:10',
+            'id':'5'
+        }
+        }
+        window.localStorage.setItem('data',JSON.stringify(f))
+        console.log(JSON.stringify(f))*/
