@@ -183,7 +183,7 @@ if(Bigbiz.domjson[q.id]==undefined){
 
 }
 var Bigbiz= new Bigbiz();
-/*
+
 var f = {'11025548':{'name':'vishva',
                 'amt':'400',
                 'status':'3',
@@ -264,5 +264,9 @@ var f = {'11025548':{'name':'vishva',
             'id':'5'
         }
         }
-        window.localStorage.setItem('data',JSON.stringify(f))
-        console.log(JSON.stringify(f))*/
+
+        if(window.localStorage.getItem('data')==null){
+            window.localStorage.setItem('data',JSON.stringify(f))
+        console.log(JSON.stringify(f))
+        }
+       
