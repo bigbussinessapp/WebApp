@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reminder</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="reminder-container">
+        <div class="reminder-card">
+          <!-- <form action="" class="add-reminder__form">
+          <label for="name" class="add-reminder__input">Name</label>
+          <input type="text" name="name" value="Name" readonly />
+          <label for="amount" class="add-reminder__input">Amount</label>
+          <input type="text" name="amount" value="0.0" readonly />
+          <label for="duedate" class="add-reminder__input">Due Date</label>
+          <input type="text" name="duedate" value="12/01/2021" readonly />
+        </form> -->
+          <p>Name: NAME</p>
+          <p>Amount: 0.0</p>
+          <p>Due Date: 12/01/2021</p>
+          <button onclick="deleteReminder()">DELETE</button>
+          <button onclick="editReminder()">EDIT</button>
+        </div>
+      </div>
+      <div class="add-reminder">
+        <button
+          class="add-reminder__button"
+          title="ADD A NEW REMINDER"
+          onclick="addReminder()"
+        >
+          ➕
+        </button>
+      </div>
+    </div>
+  </body>
+  <script src="./script.js"></script>
+</html>
