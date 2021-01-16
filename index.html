@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory</title>
+    <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+    <!--search bar 1-->
+    <form class="search" action="searches">
+        <input type="text" placeholder="Search.." name="search">
+        <button type="search"><i class="fa fa-search"></i></button>
+    </form>
+    <!--Header 1-->
+    <div class="header" width="100%">
+        <img src="image/logo1.png" alt="">
+       <b> BIG BUSINESS</b>
+    </div>
+    <div class="BigHeader" width="100%" height="40%">
+        <img src="image/inventory.png" alt="Image:inventory">
+        <b>Inventory</b>
+    </div>
+    <!--Search Bar 1 with sort and filter button-->
+    <div class="search1">
+        <input type="text" class="searchTerm" placeholder="Search Here?">
+        <button type="submit" class="searchButton">
+          <i class="fa fa-search"></i>
+       </button>
+       <button class="sort">Sort</button>
+        <button class="Filter">Filter</button>
+        <input type="text" id="item" name="fname"placeholder="Add item"><br><br>
+    </div>
+    <!--Recent searches-->
+    <div class="RecentSearches">
+        <input type="text" class="Rsearch" placeholder="Recent searches">
+    </div>
+    <div class="Notifications">
+        <input type="text" class="Notifica" placeholder="Notifications">
+        <input type="text" class="S/D" placeholder="select ">
+    </div>
+    <!--Box-->
+    <div class="Box">
+        <div id="Box1">
+            <input type="checkbox" id="Product" name="Product Name">
+            <select name="Product Name" id="1"></select>
+            <label for="checkbox"> Product Name</label><br>
+        </div>
+        <div id="Box2"> 
+            <input type="checkbox" id="Product" name="Product Name">
+            <select name="Product Name" id="1"></select>
+            <label for="checkbox"> </label><br>
+        </div> 
+    </div>
+</body>
+</html>

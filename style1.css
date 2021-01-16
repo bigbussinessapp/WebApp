@@ -1,0 +1,118 @@
+* {
+    box-sizing: border-box;
+  }
+  form.search input[type=text] {
+    padding: 1px;
+    font-size: 17px;
+    border: 1px solid rgb(128, 128, 128);
+    float: left;
+    width: 90%;
+    height: 5%;
+    background: #c3b0ce;
+  }
+  form.search button {
+    float: left;
+    width: 10%;
+    height: 10%;
+    padding: 10px;
+    background: #edecee;
+    color: white;
+    font-size: 17px;
+    border: 2px solid grey;
+    border-left: none; /* Prevent double borders */
+    cursor: pointer;
+  }
+  .header {
+    padding: 10px;
+    text-align: left;
+    background: #bf69da;
+    color: white;
+    font-size: 10px;
+    
+  }
+  .BigHeader {
+    padding: 10px;
+    text-align: left;
+    background: #9925bd;
+    color: white;
+    font-size: 10px;
+    
+  }
+img{
+    max-width: 30px;
+    height:auto ;
+    position:static;
+}
+.search1{
+    position: absolute;
+    top: 40%;
+    left:30%;
+    
+}
+.Filter {border-radius: 70%;}
+  .sort {border-radius: 80%;}
+  .searchTerm {
+    width: 100%;
+    border: 3px solid #00B4CC;
+    border-right: none;
+    padding: 5px;
+    height: 30px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: #9DBFAF;
+  }
+  .searchTerm:focus{
+    color: #00B4CC;
+  }
+  .searchButton {
+    width: 40px;
+    height: 30px;
+    float: left;
+    border: 1px solid #232525;
+    background: #00B4CC;
+    text-align: ;
+    color: #fff;
+    border-radius: 0 px px 0;
+    border-left: none;
+    cursor: pointer;
+    font-size: 20px;
+  }
+.RecentSearches{
+    position: absolute;
+    top: 53%;
+    left: 25%;
+}
+.Notifications{
+    position: absolute;
+    top: 57%;
+    left: 25%;
+}
+
+
+div .Box{ 
+    position:absolute;
+    top:60%;
+    left: 25%;
+    display: flex; 
+    flex-direction: column; 
+    border: double;
+}
+#Box1 {
+    position:absolute;
+    top:60%;
+    width: 60%;
+    left: 25%;
+    padding: 10px; 
+    height: 30px; 
+    line-height: 30px; 
+    border: solid 1px rgb(55, 1, 68) 
+} 
+#Box2 { 
+    position:absolute;
+    top:65%;
+    width: 60%;
+    left: 25%;
+    height: 15px; 
+    padding: 8px; 
+    border: solid 1px blue 
+} 
