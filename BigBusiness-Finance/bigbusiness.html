@@ -9,7 +9,7 @@
   <body>
     <div class="container">
       <div class="reminder-container">
-        <div class="reminder-card">
+        <div class="reminder-card" id="0">
           <!-- <form action="" class="add-reminder__form">
           <label for="name" class="add-reminder__input">Name</label>
           <input type="text" name="name" value="Name" readonly />
@@ -18,11 +18,11 @@
           <label for="duedate" class="add-reminder__input">Due Date</label>
           <input type="text" name="duedate" value="12/01/2021" readonly />
         </form> -->
-          <p>Name: NAME</p>
-          <p>Amount: 0.0</p>
-          <p>Due Date: 12/01/2021</p>
-          <button onclick="deleteReminder()">DELETE</button>
-          <button onclick="editReminder()">EDIT</button>
+          <p>Name: <span>NAME</span></p>
+          <p>Amount: <span>0.0</span></p>
+          <p>Due Date: <span>12-01-2021</span></p>
+          <button onclick="deleteReminder(0)">DELETE</button>
+          <button onclick="editReminder(0)">EDIT</button>
         </div>
       </div>
       <div class="add-reminder">
