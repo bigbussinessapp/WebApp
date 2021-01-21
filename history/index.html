@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<link rel="stylesheet" href="/history/index.css">
+ <!-- Bootstrap CSS -->
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    
+ <!-- Optional JavaScript -->
+ <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+ <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+   <div>
+       <input type="text" id="filtername" placeholder="filter by name">
+       <input type="date"  id="sortdate" >
+   </div>
+<div class="table-wrapper sortable">
+    <table class="fl-table" id="tableid">
+        <thead>
+        <tr>
+            <th>Transaction ID  <div class="fa fa-angle-down" id="traid"></div></th>
+            <th>Name  <div class="fa fa-angle-down" id="nameid"></div></th>
+            <th>Amount  <div class="fa fa-angle-down"   id="amtid"></div></th>
+            <th>Date  <div class="fa fa-angle-down" id="dateid"></div></th>
+            <th class="invce">Invoice  <div class="fa fa-angle-down" id="invid"></div></th>
+        </tr>
+        </thead>
+        <tbody id="ttbody">
+       
+        <tbody>
+    </table>
+
+  
+
+</div>
+</body>
+<script src="/history/index.js"></script>
+</html>
