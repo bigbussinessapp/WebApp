@@ -1,0 +1,68 @@
+body {
+  margin: 0;
+  padding: 20px;
+}
+
+/* input:not([type="button"]) {
+    border: none;
+    outline: none;
+    display: block;
+    padding-bottom: 10px;
+  } */
+
+input,
+p {
+  display: block;
+}
+
+button {
+  outline: none;
+  border: none;
+  background-color: black;
+  color: white;
+  margin-right: 3px;
+}
+
+.disabled {
+  background-color: grey;
+}
+
+.container {
+  display: flex;
+}
+
+/* .reminder-container { */
+.container-box {
+  border: 2px solid black;
+  display: flex;
+  margin-right: 10px;
+  padding-right: 10px;
+}
+
+/* .reminder-card { */
+.card {
+  border: 1px solid black;
+  margin: 10px 0px 10px 10px;
+  padding: 10px;
+  /* width: 159.95px; */
+}
+
+.add-reminder {
+  border: none;
+  margin-right: 10px;
+}
+
+.add-reminder__button {
+  border-radius: 55%;
+  background-color: black;
+  font-size: xx-large;
+  width: 100px;
+  height: 100px;
+}
+
+.reminder-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 25px;
+}
