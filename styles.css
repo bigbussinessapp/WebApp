@@ -4,15 +4,16 @@ body {
 }
 
 /* input:not([type="button"]) {
-    border: none;
-    outline: none;
-    display: block;
-    padding-bottom: 10px;
-  } */
+      border: none;
+      outline: none;
+      display: block;
+      padding-bottom: 10px;
+    } */
 
 input,
 p {
   display: block;
+  width: 100%;
 }
 
 button {
@@ -21,21 +22,19 @@ button {
   background-color: black;
   color: white;
   margin-right: 3px;
+  margin: 10px 3px 0px 0px;
 }
 
+.fade,
 .disabled {
-  background-color: grey;
-}
-
-.container {
-  display: flex;
+  background-color: rgba(44, 44, 44, 0.6);
 }
 
 /* .reminder-container { */
 .container-box {
   border: 2px solid black;
   display: flex;
-  margin-right: 10px;
+  margin: 0px 10px 30px 0px;
   padding-right: 10px;
 }
 
@@ -44,7 +43,12 @@ button {
   border: 1px solid black;
   margin: 10px 0px 10px 10px;
   padding: 10px;
+  /* background-color: white; */
   /* width: 159.95px; */
+}
+
+.container {
+  display: flex;
 }
 
 .add-reminder {
@@ -61,8 +65,18 @@ button {
 }
 
 .reminder-form-container {
+  position: fixed;
+  z-index: 9999999;
+  width: 100%;
+  /* top: 0%; */
+  left: 0%;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 25px;
+}
+
+.new-reminder__form {
+  background-color: whitesmoke;
+  width: 300px;
+  padding: 20px;
 }
