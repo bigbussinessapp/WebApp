@@ -396,10 +396,20 @@ self.addEventListener('activate', function(event) {
   
 
     window.addEventListener('click',function(e) {
-      
-if(e.target.getAttribute('class')=='fa fa-ellipsis-v'){
-  alert('you have selected invoice of '+e.target.parentElement.childNodes[1].innerText)
-}
+      if(e.target.getAttribute('class')!==null){
+
+        if(e.target.getAttribute('class')=='fa fa-chevron-down'){
+          e.target.setAttribute('class','fa fa-chevron-up')
+      }else if(e.target.getAttribute('class')=='fa fa-chevron-up'){
+        e.target.setAttribute('class','fa fa-chevron-down')
+
+      }
+      if(e.target.getAttribute('class')=='fa fa-ellipsis-v'){
+        alert('you have selected invoice of '+e.target.parentElement.childNodes[1].innerText)
+      }
+
+      }
+    
 
       
     });
