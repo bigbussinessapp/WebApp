@@ -76,11 +76,15 @@ function createtd(data){
     var c = document.createElement('td'); c.innerHTML=data.Name;
     var d = document.createElement('td'); d.innerHTML=data.amount;
     var e = document.createElement('td'); e.innerHTML=data.Date;
+    var f = document.createElement('td'); 
+    f.setAttribute('class',"fa fa-ellipsis-v");
+    f.setAttribute('style',"font-size:20px;color:green");
 
    tr.append(b)
    tr.append(c)
    tr.append(d)
    tr.append(e)
+   tr.append(f)
 
    a.append(tr)
 
@@ -390,3 +394,21 @@ self.addEventListener('activate', function(event) {
 
 
   
+
+    window.addEventListener('click',function(e) {
+      
+if(e.target.getAttribute('class')=='fa fa-ellipsis-v'){
+  alert('you have selected invoice of '+e.target.parentElement.childNodes[1].innerText)
+}
+
+      
+    });
+
+
+    function re() {
+     document.getElementById('ttbody').innerHTML=''
+      for (let i = 0; i < sorted.length; i++) {
+        createtd(sorted[i])
+        
+    }
+    }
