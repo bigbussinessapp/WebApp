@@ -13,8 +13,9 @@ var version = 'v1::';
 */
 var offlineFundamentals = [
   '',
-  '/TRAlib/global.css',
-  '/TRAlib/global.js'
+  '/history/index.css',
+  '/history/index.js',
+  '/history/index.html',
 ];
 
 /* The install event fires when the service worker is first installed.
@@ -41,7 +42,7 @@ self.addEventListener("install", function(event) {
            The method below will add all resources in `offlineFundamentals` to the
            cache, after making requests for them.
         */
-       // return cache.addAll(offlineFundamentals);
+        return cache.addAll(offlineFundamentals);
       })
       .then(function() {
         console.log('WORKER: install completed');
