@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="image/style.css">
+    <script src="image/in.js"></script>
+    
+</head>
+<body>
+        <!-- ***** Header Area Start ***** -->
+    <div class="header" width="100%"height="20%">
+            <img style="height: 60px; width: 80px; border-radius: 50%; margin-left: auto; margin-right: auto;" src="image/logo1.png" alt="" class="logo">
+             <b> BIG BUSINESS</b>
+           </div>
+           
+           <div class="bigHeader" width="100%" height="20%">
+            <img src="image/inventory.png" alt="Image:inventory" />
+            <b>Inventory</b>
+          </div>
+          <br>
+          <!--Search-->
+          <div class="input-group rounded">
+            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+              aria-describedby="search-addon" />
+            <span class="input-group-text border-0" id="search-addon">
+                <i class="fas fa-search"></i>
+            </span>
+            <div>
+            <button class="sort">Sort</button>
+            <button class="Filter">Filter</button>
+            
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Add Item
+            </button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div>
+                      <input type="text" name="Product Name" placeholder="Product Name">
+                    </div>
+                    <div>
+                      <input type="number"placeholder="Quantity" >
+                    </div>
+                      <div class="input-group mb-3">
+                        <span class="input-group-text">Price</span>
+                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                        <span class="input-group-text"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Update</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          <hr>
+          <!--recent searches-->
+          <div class="Rs">
+            <input type="text" class= "Recs"placeholder="Recent searches">
+       
+            </div>
+           </div>
+           <hr>
+   <!--Produc-->
+   <div class="form2">
+        <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+        <label class="form-check-label" for="flexCheckDefault">
+         Product Name
+        </label>
+        <form id='myform' method='POST' action='#'>
+            <input type='button' value='-' class='qtyminus' field='quantity' />
+            <input type='text' name='quantity' value='0' class='qty' />
+            <input type='button' value='+' class='qtyplus' field='quantity' />
+        </form>
+        <!--trial-->
+        <!-- Button trigger modal -->
+<button  type="button" id="move" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    Delete
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Delete</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete?
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+          <button type="button" class="btn btn-primary">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+        <!---->
+        </div>
+        <div class="form3">
+        <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+        <label class="form-check-label" for="flexCheckChecked">
+        </label>
+        </div>  
+        </div>      
+    </div>        
+<hr>
+    
+</body>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+<script>
+    // Get the modal
+    var modal = document.getElementById('id01');
+    
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+    </script>
+    
+</html>
