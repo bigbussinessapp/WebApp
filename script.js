@@ -63,6 +63,7 @@ function cancelReminderForm(num) {
 
 function editReminder(num) {
     var reminder = document.getElementById(`${num}-r`);
+    console.log(num, reminder);
     var input_values = reminder.getElementsByTagName("span");
     var name_value = input_values[0].innerText;
     var amount_value = input_values[1].innerText;
@@ -105,6 +106,9 @@ function saveReminder(num) {
         input_elements[1].value !== "" &&
         input_elements[2].value !== ""
     ) {
+        var old_reminder = document.getElementById(`${num}-r`);
+        if (old_reminder !== null)
+            r_container.removeChild(old_reminder);
         new_reminder_card.append(name, amount, duedate, delete_btn, change_due_btn, edit_btn);
         r_container.append(new_reminder_card);
         r_f_container.style.display = "none";
