@@ -1,0 +1,93 @@
+.body{
+    margin: 0;
+    padding: 0;
+  }
+.header {
+    size: 30px;
+    text-align:center;
+    background: #bf69da;
+    color: rgb(22, 21, 21);
+    font-size: 30px;
+  }
+  .hr{
+      color: rgb(255, 255, 255);
+      size: 0px;
+      height: 1px;
+
+  }
+  .bigHeader{
+    padding: 10px;
+    text-align: left;
+    background: #dc97f1;
+    color: rgb(233, 230, 236);
+    font-size: 20px;
+  }
+
+.input-group{
+    
+    
+    height: 20px;
+    margin: auto;
+    width: 40%
+    
+}
+
+
+.Filter {border-radius: 80%;
+}
+.sort {border-radius: 80%;
+}
+.Rs{
+  padding-left: 400px;
+    
+}
+.Recs{
+
+    width: 350px ;
+    height: 30px;
+   margin: auto; 
+    
+}
+
+.form2{
+    border:rgb(80, 80, 80);
+    width: 450px;
+    height:250px ;
+    margin-left:400px;
+    border-style: solid;
+  
+
+}
+.form3{
+    border:rgb(87, 87, 87);
+    width: 449px;
+    height:50px ;
+    margin:auto;
+    border-style: solid;
+}
+#myform {
+    text-align:center;
+    
+    border: 0px dotted #ccc;
+    
+}
+.qty {
+    width: 40px;
+    height: 25px;
+    text-align: center;
+}
+input.qtyplus {
+     width:25px; 
+     height:25px;
+    }
+input.qtyminus{
+     width:25px;
+     height:25px;
+    }
+#move{
+    
+    .clearfix {
+        overflow: auto;
+      }
+   
+}
