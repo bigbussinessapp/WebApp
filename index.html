@@ -11,6 +11,9 @@
 
   <script src="/myLib/uid.min.js"></script>
   <script src="/myLib/lib.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/style.min.css">
 
 </head>
 
@@ -36,12 +39,12 @@
       <i class="fas fa-search"></i>
     </span>
     <div>
-      <button class="sort">Sort</button>
-      <button class="Filter">Filter</button>
-
+  
+      <button class="Filter" data-bs-toggle="modal" data-bs-target="#Filter-modal">Filter</button>
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Add-product-modal">
         Add Item
       </button>
+
 
     </div>
 
@@ -109,18 +112,52 @@
 
   <div class="container">
     <p align="center" id="no-products" hidden>No products yet</p>
-    <table class="table" id="products-table">
+    <div class="table-wrapper sortable">
+      <table class="fl-table" id="tableid">
+        <thead id="thead">
+          <tr>
+            <th>Product Name <div class="fa fa-chevron-down" id="PROID"></div>
+            </th>
+            <th>Price <div class="fa fa-chevron-down" id="PRICEID"></div>
+            </th>
+            <th>Quantity <div class="fa fa-chevron-down" id="QUID"></div>
+            </th>
+            <th class="invce"><i class="fas fa-cog"></i></th>
+          </tr>
+        </thead>
+        <tbody id="ttbody">
+          <!--
+          <tr>
+            <td>shiva</td>
+            <td>45</td>
+            <td>1</td>
+            <td class="fa fa-ellipsis-v" style="font-size:20px;color:green"></td>
+          </tr>
+          <tr>
+            <td>shivani</td>
+            <td>454</td>
+            <td>17</td>
+            <td class="fa fa-ellipsis-v" style="font-size:20px;color:green"></td>
+          </tr>
+          <tr>
+            <td>shivasag</td>
+            <td>458</td>
+            <td>10</td>
+            <td class="fa fa-ellipsis-v" style="font-size:20px;color:green"></td>
+          </tr>
+          <tr>
+            <td>surya</td>
+            <td>45</td>
+            <td>16</td>
+            <td class="fa fa-ellipsis-v" style="font-size:20px;color:green"></td>
+          </tr>
+        -->
+        <tbody>
+      </table>
 
-  <!--
-      <tr>
-        <td>Product name1</td>
-        <td>1000/-</td>
-        <td>2</td>
-        <td align="right"><button type="button" class="btn btn-outline-primary">edit</button></td>
-        <td><button type="button" class="btn btn-outline-danger">Delete</button></td>
-      </tr>
-    -->
-    </table>
+
+
+    </div>
   </div>
 
 
@@ -161,11 +198,45 @@
         <div class="modal-footer">
 
           <button type="button" class="btn btn-outline-primary" id="add-product-btn">Add</button>
-          <button type="button" class="btn btn-success" onclick="Big.Update(this);" id="update-product-btn" hidden>Update</button>
+          <button type="button" class="btn btn-success" onclick="Big.Update(this);" id="update-product-btn"
+            hidden>Update</button>
         </div>
       </div>
     </div>
   </div>
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="Filter-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Name" id="filtername">
+            </div>
+            <!--
+            <label for="customRange3" class="form-label">Price</label>
+            <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3">
+          -->
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <ul class="zxy card" id="yyy">
+    <div class="lili" id="vi">Edit</div>
+    <div class="lili" id="de">Delete</div>
+    
+  </ul>
 
 </body>
 <!-- JavaScript Bundle with Popper -->
