@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reminder</title>
+    <!-- bootstrap css -->
+    <!-- <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    /> -->
+    <link rel="stylesheet" href="./styles.css" />
+    
+    <script type="text/javascript" src="./ReminderItem.js"></script>
+    <script type="text/javascript" src="./ReminderManager.js"></script>
+    <script type="text/javascript" src="./RemindersController.js"></script>
+  </head>
+  <body>
+    <h3>PAYMENT REMINDERS</h3>
+    <div id="reminderContainer">
+      <div id="reminderList">
+      </div>
+      <div ids="addReminderCard">
+        <button
+          id="addReminderBtn"
+          title="ADD A NEW REMINDER"
+          onclick="enableAddEditForm()">
+          ➕
+        </button>
+      </div>
+    </div>
+
+    <div id="reminderAddEditDialog" class="reminder-form-container" style="display: none">
+        <div id="reminderAddEditForm" class="reminder-card new-reminder__form">
+          <label for="person-name">NAME</label>
+          <input type="text" name="person-name" value="" required />
+          <label for="amount">AMOUNT</label>
+          <input type="number" name="amount" min="0" value="" required />
+          <label for="duedate">DUE DATE</label>
+          <input type="date" name="duedate" min="2021-01-22" value="" required />
+          <button onclick="cancelForm()">CANCEL</button>
+          <button disabled id="saveBtnReminderForm"  onclick="addNewReminderCard()">SAVE</button>
+        </div>
+    </div>
+  </body>
+</html>
