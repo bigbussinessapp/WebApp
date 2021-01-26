@@ -1,3 +1,47 @@
+// DUE DATE IS IN YYYY-MM-DD FORMAT
+
+// import reminderData from './reminderDB';    // to be used in populateReminder
+// const reminderData = require("./reminderDB");
+const reminderData = [
+    {
+        id: 0,
+        name: "Aryan",
+        amount: 26,
+        duedate: "2020-02-20",
+    },
+    {
+        id: 0,
+        name: "Rohit",
+        amount: 2060,
+        duedate: "2021-02-20",
+    },
+    {
+        id: 0,
+        name: "Ashna",
+        amount: 1111,
+        duedate: "2020-02-22",
+    },
+    {
+        id: 0,
+        name: "Shiva",
+        amount: 2623,
+        duedate: "2022-02-20",
+    },
+    {
+        id: 0,
+        name: "Akhil",
+        amount: 26123,
+        duedate: "2021-01-20",
+    },
+    {
+        id: 0,
+        name: "Kathi",
+        amount: 26,
+        duedate: "2020-02-20",
+    },
+]
+
+
 // container in which reminder-container and addReminder button exist
 var container = document.querySelector(".container");
 // container in which only reminders exist
@@ -14,6 +58,7 @@ var addReminderBtn = document.querySelector(".add-reminder__button");
 
 //   create reminder onclick of + button
 function createReminder(num, name = "", amount = "", duedate = "") {
+    console.log("createReminder -> ", num, name, amount, duedate);
     r_f_container.style.display = "flex";
     document.body.classList.add("fade");
 
@@ -24,11 +69,11 @@ function createReminder(num, name = "", amount = "", duedate = "") {
     input_elements[1].value = amount;
 
     var today = new Date();
-    console.log(today);
+    console.log(`createReminder -> ${today}`);
     var m = today.getMonth() + 1;
     // var mm = m > 9 ? m : "0" + m;
     input_elements[2].min = `${today.getFullYear()}-${m > 9 ? m : "0" + m}-${today.getDate()}`;
-    console.log(input_elements[2].min);
+    console.log(`createReminder -> ${input_elements[2].min}`);
     input_elements[2].value = duedate;
 
     var delete_btn = new_reminder_form.getElementsByTagName("button")[0];
@@ -41,6 +86,28 @@ function createReminder(num, name = "", amount = "", duedate = "") {
 // if count is declared as global then anyone can change it's value
 function secureCount() {
     var count = 0;
+
+    // populateData function calls createReminder with existing data and if the duedate is less than 
+    // today's date then directly it's sent to createDue
+    // reminderData is an array of objects{name,amount,duedate}
+    function populateReminder(reminderData) {
+        reminderData.sort((a, b) => new Date(a.duedate) - new Date(b.duedate));
+        reminderData.forEach((obj, index) => {
+            obj.id = ++count;
+            var today = new Date();
+            if (new Date(obj.duedate) >= today) {   // duedate is greater than today's date
+                createReminder(obj.id, obj.name, obj.amount, obj.duedate);
+                saveReminder(obj.id);
+            } else {    // duedate is less than today's date -> createDue
+                // here duedate is in yyyy-mm-dd format hence we have to change it to dd-mm-yyyy fomrat
+                var ymd = obj.duedate.split("-");
+                createDue(obj.id, obj.name, obj.amount, `${ymd[2]}-${ymd[1]}-${ymd[0]}`);
+            }
+        });
+    }
+
+    populateReminder(reminderData);
+
     return function addReminder() {
         createReminder(++count);
     }
@@ -63,12 +130,12 @@ function cancelReminderForm(num) {
 
 function editReminder(num) {
     var reminder = document.getElementById(`${num}-r`);
-    console.log(num, reminder);
+    console.log(`editReminder -> ${num} - ${reminder}`);
     var input_values = reminder.getElementsByTagName("span");
     var name_value = input_values[0].innerText;
     var amount_value = input_values[1].innerText;
     var duedate_value = input_values[2].innerText;
-    // pass the duedate_value in yyyy-mm-dd format
+    // pass the duedate_value in yyyy-mm-dd format but here dmy is in dd-mm-yyyy format
     var dmy = duedate_value.split("-");
     createReminder(num, name_value, amount_value, `${dmy[2]}-${dmy[1]}-${dmy[0]}`);
     reminder.style.display = "none";
@@ -89,8 +156,9 @@ function saveReminder(num) {
     var amount = document.createElement("p");
     amount.innerHTML = `Amount: <span>${input_elements[1].value}</span>`;
     var duedate = document.createElement("p");
-    var dmy = input_elements[2].value.split("-");
-    duedate.innerHTML = `Due Date: <span>${dmy[2]}-${dmy[1]}-${dmy[0]}</span>`;
+    var ymd = input_elements[2].value.split("-");
+    // here ymd is in yyyy-mm-dd format but we want the data in dd-mm-yyyy format
+    duedate.innerHTML = `Due Date: <span>${ymd[2]}-${ymd[1]}-${ymd[0]}</span>`;
     var delete_btn = document.createElement("button");
     delete_btn.innerText = "DELETE";
     delete_btn.setAttribute("onclick", `cancelReminder(${num})`);
@@ -101,23 +169,43 @@ function saveReminder(num) {
     edit_btn.innerText = "EDIT";
     edit_btn.setAttribute("onclick", `editReminder(${num})`);
 
+
     if (
         input_elements[0].value !== "" &&
         input_elements[1].value !== "" &&
         input_elements[2].value !== ""
     ) {
         var old_reminder = document.getElementById(`${num}-r`);
+        // if editReminder is clicked then the old_reminder is made as `display:none` but we
+        // have to remove it and then add new_reminder
         if (old_reminder !== null)
             r_container.removeChild(old_reminder);
         new_reminder_card.append(name, amount, duedate, delete_btn, change_due_btn, edit_btn);
         r_container.append(new_reminder_card);
         r_f_container.style.display = "none";
         document.body.classList.remove("fade");
+
+        //if editReminder is clicked, reminderObj is already in reminderData hence rdata_index
+        // will be used else num will be used as id
+
+        // var rdata_index = reminderData.findIndex((val, index, obj) => val.id === num);
+        // var ri = rdata_index !== -1 ? rdata_index : num;
+        // var reminderObject = {
+        //     id: num,
+        //     name: input_elements[0].value,
+        //     amount: input_elements[1].value,
+        //     duedate: input_elements[2].value,
+        // };
+
+        // console.log("rdata_index", rdata_index);
+        // reminderData[num] = reminderObject;
+
+        // localStorage.setItem("reminderData", reminderData);
     }
 }
 
 function createDue(num, name_value, amount_value, duedate_value) {
-    console.log(num, name, amount, duedate);
+    console.log("createDue -> ", num, name_value, amount_value, duedate_value);
     var new_due_card = document.createElement("div");
     new_due_card.classList.add("card", "due-card");
     new_due_card.setAttribute("id", `${num}-d`);
@@ -126,7 +214,7 @@ function createDue(num, name_value, amount_value, duedate_value) {
     name.innerHTML = `Name: <span>${name_value}</span>`;
     var amount = document.createElement("p");
     amount.innerHTML = `Amount: <span>${amount_value}</span>`;
-    var duedate = document.createElement("p");
+    var duedate = document.createElement("p");  // here duedate_value is in dd-mm-yyyy format
     duedate.innerHTML = `Due Date: <span>${duedate_value}</span>`;
     var pay_now_btn = document.createElement("button");
     pay_now_btn.innerText = "PAY NOW";
@@ -138,7 +226,7 @@ function createDue(num, name_value, amount_value, duedate_value) {
 function changeDue(num) {
     var reminder = document.getElementById(`${num}-r`);
     var span_values = reminder.getElementsByTagName("span");
-    console.log(span_values);
+    console.log("changeDue -> ", span_values);
     // created a due in due_container
     createDue(
         num,
@@ -153,7 +241,7 @@ try {
     var form = document.querySelector(".new-reminder__form");
     var inputs = form.querySelectorAll("input");
     var register = form.querySelectorAll("button")[1];
-    console.log("I'm in script");
+    console.log("try -> I'm in script");
     form.addEventListener("input", function (e) {
         // console.log("I'm in keyup fun");
         var disabled = false;
@@ -163,7 +251,7 @@ try {
             }
         });
 
-        if (disabled || (new Date(inputs[2].value) < new Date()) || inputs[1].value < 0) {
+        if (disabled || (new Date(inputs[2].value) <= new Date()) || inputs[1].value < 0) {
             // console.log("disabled from if ", disabled);
             register.setAttribute("disabled", "disabled");
             register.classList.add("disabled");
@@ -175,5 +263,5 @@ try {
     });
     // inputs[2].value
 } catch (error) {
-    console.log("No form created!");
+    console.log("catch -> No form created!");
 }
