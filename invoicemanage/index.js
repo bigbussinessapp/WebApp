@@ -185,8 +185,8 @@ function sortTable1(a, b) {
 var a;
 function setposition(e) {
   var bodyOffsets = document.body.getBoundingClientRect();
-  tempX = e.pageX - bodyOffsets.left-200;
-  tempY = e.pageY-bodyOffsets.top-400;
+  tempX = e.pageX - bodyOffsets.left-220;
+  tempY = e.pageY-bodyOffsets.top-390;
 console.log(tempX);
 document.getElementById('yyy').setAttribute('class','xyz card')
 
@@ -315,7 +315,7 @@ function dataURLtoFile(dataurl, filename) {
 
 
 document.getElementById('addinvoice').addEventListener('click',function() {
-  document.getElementById('ttbody').innerHTML="Recent"
+  document.getElementById('ttbody').innerHTML=""
   var moonWalkers = [
     "Neil Armstrong",
     "Buzz Aldrin",
