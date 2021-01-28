@@ -1,79 +1,5 @@
-class ReminderItem {
-    id;
-    name;
-    amount;
-    duedate;
-    dueTime;
-
-    constructor(id, name, amount, duedate, dueTime) {
-        this.id = id;
-        this.name = name;
-        this.amount = amount;
-        this.duedate = duedate;
-        this.dueTime = dueTime;
-    }
-}
-
-class ReminderManager {
-    reminders = [new ReminderItem(1, "Sharon", 1200, "2101-11-20", "08:20")];
-    dues = [new ReminderItem(1, "Bharath", 200, "2001-11-20", "08:20"),
-    new ReminderItem(2, "Faron", 1, "2021-01-28")];
-
-    constructor() {
-        console.log(this.reminders);
-        console.log(this.dues);
-    }
-
-    addReminderCard(card) {
-        this.reminders.push(card);
-        console.log(this.reminders);
-    }
-
-    deleteReminderCard(id) {
-        this.reminders.map((item, index, array) => {
-            if (item.id === id) {
-                this.reminders.splice(item, 1);
-            }
-        });
-        console.log(this.reminders);
-    }
-
-    editReminderCard(card) {
-        // var cardToEdit = null;
-        var isEdited = false;
-        this.reminders.map(item => {
-            if (item.id === card.id) {
-                item.name = card.name;
-                item.amount = card.amount;
-                item.duedate = card.dueDate;
-                item.dueTime = card.dueTime;
-                isEdited = true;
-            }
-        });
-
-        if (!isEdited) {
-            alert("Card with name " + card.name + " is not found");
-        }
-    }
-
-    addDueCard(card) {
-        this.dues.push(card);
-        console.log(this.dues);
-    }
-
-    deleteDueCard(id) {
-        this.dues.map((item, index, array) => {
-            if (item.id === id) {
-                this.dues.splice(item, 1);
-            }
-        });
-        console.log(this.dues);
-    }
-}
-
-
 // DUE DATE IS IN YYYY-MM-DD FORMAT
-const reminderData = [
+const reminders = [
     {
         id: 1,
         name: "Aryan",
@@ -111,24 +37,73 @@ const reminderData = [
         duedate: "2020-02-20",
     },
 ]
+var reminderIdCount = 6;
 
-const dueData = [
+const dues = [
     {
-        id: 0,
+        id: 1,
         name: "Tejas",
         amount: 26,
         duedate: "2020-02-20",
     },
     {
-        id: 0,
+        id: 2,
         name: "Bharath",
         amount: 26,
         duedate: "2020-02-20",
     },
 ]
+var dueIdCount = 2;
+
+
+function addReminderCard(card) {
+    reminders.push(card);
+    console.log(reminders);
+}
+
+function deleteReminderCard(id) {
+    reminders.map((item, index, array) => {
+        if (item.id === id) {
+            reminders.splice(index, 1);
+        }
+    });
+    console.log(reminders);
+}
+
+function editReminderCard(card) {
+    // var cardToEdit = null;
+    var isEdited = false;
+    reminders.map(item => {
+        if (item.id === card.id) {
+            item.name = card.name;
+            item.amount = card.amount;
+            item.duedate = card.dueDate;
+            isEdited = true;
+        }
+    });
+
+    if (!isEdited) {
+        alert("Card with name " + card.name + " is not found");
+    }
+}
+
+function addDueCard(card) {
+    dues.push(card);
+    console.log(dues);
+}
+
+function deleteDueCard(id) {
+    dues.map((item, index, array) => {
+        if (item.id === id) {
+            dues.splice(index, 1);
+        }
+    });
+    console.log(dues);
+}
 
 
 // container in which reminder - container and addReminder button exist
+
 var container = document.querySelector(".container");
 // container in which only reminders exist
 var r_container = document.querySelector(".reminder-container");
@@ -138,40 +113,57 @@ var r_f_container = document.querySelector(".reminder-form-container");
 var due_container = document.querySelector(".due-container");
 
 // for addReminderButton and it's container
-var addReminderBtnContainer = document.querySelector(".add-reminder");
-var addReminderBtn = document.querySelector(".add-reminder__button");
+// var addReminderBtnContainer = document.querySelector(".add-reminder");
+// var addReminderBtn = document.querySelector(".add-reminder__button");
 
 
-// populateData function calls createReminder with existing data and if the duedate is less than 
-// today's date then directly it's sent to createDue
-// reminderData is an array of objects{name,amount,duedate}
-function populateReminder(reminderData) {
-    reminderData.sort((a, b) => new Date(a.duedate) - new Date(b.duedate));
+function reminderToDue(reminderData, dueData) {
     for (var index = 0; index < reminderData.length; index++) {
         obj = reminderData[index];
-        // console.log(obj);
-        // obj.id = ++count;
         var today = new Date();
         if (new Date(obj.duedate) >= today) {   // duedate is greater than today's date
-            createReminder(obj.id, obj.name, obj.amount, obj.duedate);
-            saveReminder(obj.id);
+            // createReminder(obj.id, obj.name, obj.amount, obj.duedate);
+            // saveReminder(obj.id);
         } else {    // duedate is less than today's date -> createDue
-            // here duedate is in yyyy-mm-dd format hence we have to change it to dd-mm-yyyy fomrat
-            var ymd = obj.duedate.split("-");
-            createDue(obj.id, obj.name, obj.amount, `${ymd[2]}-${ymd[1]}-${ymd[0]}`);
-
+            dues.push({
+                id: ++dueIdCount,
+                name: obj.name,
+                amount: obj.amount,
+                duedate: obj.duedate,
+            });
             // just removal from reminderData is enough
             reminderData.splice(index, 1);
             index--;
         }
     }
 }
+reminderToDue(reminders, dues);
 
-const rmManager = new ReminderManager();
-populateReminder(rmManager.reminders);
-populateReminder(rmManager.dues);
-populateReminder(reminderData);
-populateReminder(dueData);
+reminders.sort((a, b) => new Date(a.duedate) - new Date(b.duedate));
+dues.sort((a, b) => new Date(a.duedate) - new Date(b.duedate));
+
+
+// populateData function calls createReminder with existing data and if the duedate is less than 
+// today's date then directly it's sent to createDue
+// reminderData is an array of objects{name,amount,duedate}
+function populateReminders(reminderData) {
+    reminderData.map((obj, index, array) => {
+        createReminder(obj.id, obj.name, obj.amount, obj.duedate);
+        saveReminder(obj.id);
+    });
+}
+populateReminders(reminders);
+
+
+function populateDues(dueData) {
+    dueData.map((obj, index, array) => {
+        createDue(obj.id, obj.name, obj.amount, obj.duedate);
+    });
+}
+
+populateDues(dues);
+// populateReminder(reminderData);
+// populateReminder(dueData);
 
 
 //   create reminder onclick of + button
@@ -205,7 +197,7 @@ function cancelReminder(num) {
     var reminder = document.getElementById(`${num}-r`);
     r_container.removeChild(reminder);
 
-    rmManager.deleteReminderCard(num);
+    deleteReminderCard(num);
     // reminderData.map((obj, index, array) => {
     //     if (obj.id === num) {
     //         reminderData.splice(index, 1);
@@ -236,17 +228,17 @@ function editReminder(num) {
 
 // secureCount functions provides security to count variable by using closures
 // if count is declared as global then anyone can change it's value
-function secureReminderCount() {
-    var count = 0;
-    return function getReminderCount() {
-        return ++count;
-    }
-}
-getReminderCount = secureReminderCount();   // used by saveReminder
+// function secureReminderCount(reminderIdCount) {
+//     var count = reminderIdCount;
+//     return function getReminderCount() {
+//         return count;
+//     }
+// }
+// var getReminderCount = secureReminderCount(reminderIdCount);   // used by saveReminder
 
 function saveReminder(num_val) {
     // card - 3p's and 2 btn's 
-    var num = num_val === 0 ? getReminderCount() : num_val;
+    var num = num_val === 0 ? ++reminderIdCount : num_val;
     var new_reminder_card = document.createElement("div");
     new_reminder_card.classList.add("card", "reminder-card");
     new_reminder_card.setAttribute("id", `${num}-r`);
@@ -283,6 +275,10 @@ function saveReminder(num_val) {
             amount: input_elements[1].value,
             duedate: input_elements[2].value,
         };
+        // var reminderObject = new ReminderItem(
+        //     num, input_elements[0].value, input_elements[1].value,
+        //     input_elements[2].value
+        // );
         var old_reminder = document.getElementById(`${num}-r`);
         // if editReminder is clicked, then the old_reminder is made as `display:none` but we
         // have to remove it and then add new_reminder and reminderObj
@@ -291,9 +287,9 @@ function saveReminder(num_val) {
         if (old_reminder !== null) {
             r_container.removeChild(old_reminder);
             editedCard = true;
-            // rmManager.reminders.map((item, index, array) => {
+            // reminders.map((item, index, array) => {
             //     if (item.id === num) {
-            //         rmManager.reminders.splice(index, 1);
+            //         reminders.splice(index, 1);
             //     }
             // });
         }
@@ -302,10 +298,10 @@ function saveReminder(num_val) {
         r_f_container.style.display = "none";
         document.body.classList.remove("fade");
 
-        if (editedCard)
-            rmManager.editReminderCard(reminderObject);
+        if (editedCard || num_val !== 0)
+            editReminderCard(reminderObject);
         else
-            rmManager.addReminderCard(reminderObject);
+            addReminderCard(reminderObject);
     }
 }
 
@@ -332,9 +328,19 @@ function changeDue(num) {
     var reminder = document.getElementById(`${num}-r`);
     var span_values = reminder.getElementsByTagName("span");
     console.log("changeDue -> ", span_values);
+
+
+    deleteReminderCard(num);
+    num = ++dueIdCount;
+    var dueObject = {
+        id: num,
+        name: span_values[0].innerHTML,
+        amount: span_values[1].innerHTML,
+        duedate: span_values[2].innerHTML,
+    };
+    dues.push(dueObject);
     // created a due in due_container
-    createDue(
-        num,
+    createDue(num,
         span_values[0].innerHTML,
         span_values[1].innerHTML,
         span_values[2].innerHTML
@@ -356,7 +362,9 @@ try {
             }
         });
 
-        if (disabled || (new Date(inputs[2].value) <= new Date()) || inputs[1].value < 0) {
+        var yyyy_mm_dd = inputs[2].value.split("-");
+        // if (disabled || new Date() >= new Date(`${yyyy_mm_dd[0]}-${yyyy_mm_dd[1] - 1}-${yyyy_mm_dd[0]}`) || inputs[1].value < 0) {
+        if (disabled || new Date(inputs[2].value) < new Date() || inputs[1].value < 0) {
             // console.log("disabled from if ", disabled);
             register.setAttribute("disabled", "disabled");
             register.classList.add("disabled");
