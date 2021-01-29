@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript">
+    (function() {
+
+        var viewMode = window.getCookie("view-mode");
+  if(viewMode == "desktop"){
+      viewport.setAttribute('content', 'width=1024');
+  }else if (viewMode == "mobile"){
+      viewport.setAttribute('content', 'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no');
+  }
+    });
+     
+      </script>
+    <title>Document</title>
+
+
+<link rel="stylesheet" href="/history/index.css">
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+ <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+
+</head>
+<body>
+    <Button onclick="re();">reset demo</Button>
+   <div>
+       <input type="text" id="filtername" placeholder="filter by name">
+       <input type="date"  id="sortdate" >
+   </div>
+<div class="table-wrapper sortable">
+    <table class="fl-table" id="tableid">
+        <thead>
+        <tr>
+            <th>Transaction ID  <div class="fa fa-chevron-down" id="traid"></div></th>
+            <th>Name  <div class="fa fa-chevron-down" id="nameid"></div></th>
+            <th>Amount  <div class="fa fa-chevron-down"   id="amtid"></div></th>
+            <th>Date  <div class="fa fa-chevron-down" id="dateid"></div></th>
+            <th class="invce"><i class="fas fa-file-invoice"></i></th>
+        </tr>
+        </thead>
+        <tbody id="ttbody">
+       
+        <tbody>
+    </table>
+
+  
+
+</div>
+</body>
+<script src="/history/index.js"></script>
+</html>
