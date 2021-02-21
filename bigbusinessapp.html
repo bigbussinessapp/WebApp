@@ -1,0 +1,465 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <!-- <script src="https://unpkg.com/pdf-lib"></script> -->
+    <script src="./pdf-lib.min.js"></script>
+    <style>
+      label,
+      input:not([type="radio"]),
+      button {
+        display: block;
+      }
+      button {
+        margin: 10px auto;
+      }
+      div#from_to_container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .disabled {
+        background-color: grey;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="from_to_container">
+      <div class="details_container" id="from_details">
+        <form id="from-details" class="details-form">
+          <fieldset>
+            <legend>FROM</legend>
+            <label for="from_name_val">NAME</label>
+            <input type="text" name="title" id="from_title_val" required />
+            <label for="from_amount_val">AMOUNT</label>
+            <input type="number" name="amount" id="from_amount_val" required />
+            <input type="radio" name="status" id="pay" />PAY
+            <input type="radio" name="status" id="receive" checked />RECEIVE
+            <label for="from_duedate_val">DUE DATE</label>
+            <input type="date" name="duedate" id="from_duedate_val" required />
+          </fieldset>
+        </form>
+      </div>
+      <div class="details_container" id="to_details">
+        <form id="to-details" class="details-form">
+          <fieldset>
+            <legend>TO</legend>
+            <label for="to_name_val">NAME</label>
+            <input type="text" name="title" id="to_title_val" required />
+            <label for="to_amount_val">DUE AMOUNT</label>
+            <input type="number" name="amount" id="to_amount_val" required />
+            <label for="to_duedate_val">DUE DATE</label>
+            <input type="date" name="duedate" id="to_duedate_val" required />
+          </fieldset>
+        </form>
+      </div>
+    </div>
+    <button class="disabled" onclick="createPdf()">SAVE TO PDF</button>
+    <iframe id="pdf" style="width: 100%; height: 100%; display: none"></iframe>
+  </body>
+
+  <script>
+    async function createPdf() {
+      //   allDetailsFilled("from");
+      //   allDetailsFilled("to");
+
+      const pdfDoc = await PDFLib.PDFDocument.create();
+      const page = pdfDoc.addPage([400, 450]);
+      const { width, height } = page.getSize();
+      console.log(width, height);
+      page.moveTo(width / 5, height - 30);
+      page.drawText(`BIG BUSINESS APP`);
+
+      var fromDetails = getDetails("from");
+      //   var { title, amount, status, duedate } = fromDetails;
+
+      var toDetails = getDetails("to");
+      //   var { title, amount, status, duedate } = toDetails;
+
+      var start = 100;
+      page.moveTo(0, height - start);
+      page.drawText("FROM");
+
+      var i = 1;
+      for (const key in fromDetails) {
+        //   if (Object.hasOwnProperty.call(fromDetails, key)) {
+        //       const element = fromDetails[key];
+        //   }
+        const element = fromDetails[key];
+        page.moveTo(50, height - start - 20 * i++);
+        page.drawText(`${key} = ${element}`);
+      }
+
+      start = 200;
+      page.moveTo(0, height - start);
+      page.drawText("TO");
+
+      i = 1;
+      for (const key in toDetails) {
+        const element = toDetails[key];
+        page.moveTo(50, height - start - 20 * i++);
+        page.drawText(`${key} = ${element}`);
+      }
+
+      const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
+      document.getElementById("pdf").src = pdfDataUri;
+
+      document.getElementById("pdf").style.display = "block";
+    }
+
+    function getDetails(formname) {
+      var form = document.getElementById(`${formname}-details`);
+
+      var title = document.getElementById(`${formname}_title_val`).value;
+      var amount = document.getElementById(`${formname}_amount_val`).value;
+      var pay = document.getElementById("pay").checked;
+      var receive = document.getElementById("receive").checked;
+      var status = pay ? "pay" : "receive";
+      var duedate = document.getElementById(`${formname}_duedate_val`).value;
+
+      return {
+        title,
+        amount,
+        status,
+        duedate,
+      };
+    }
+
+    // function allDetailsFilled(formname) {
+    //   var form = document.getElementById(`${formname}-details`);
+    //   var inputs = form.querySelectorAll("input");
+    //   var register = document.querySelector("button");
+    //   console.log("try -> I'm in script");
+    //   form.addEventListener("input", function (e) {
+    //     // console.log("I'm in keyup fun");
+    //     var disabled = false;
+    //     inputs.forEach(function (input, index) {
+    //       if (input.value === "" || !input.value.replace(/\s/g, "").length) {
+    //         disabled = true;
+    //       }
+    //     });
+
+    //     var yyyy_mm_dd = inputs[2].value.split("-");
+    //     // if (disabled || new Date() >= new Date(`${yyyy_mm_dd[0]}-${yyyy_mm_dd[1] - 1}-${yyyy_mm_dd[0]}`) || inputs[1].value < 0) {
+    //     if (
+    //       disabled ||
+    //       new Date(inputs[2].value) < new Date() ||
+    //       inputs[1].value < 0
+    //     ) {
+    //       // console.log("disabled from if ", disabled);
+    //       register.setAttribute("disabled", "disabled");
+    //       register.classList.add("disabled");
+    //     } else {
+    //       // console.log("disabled from else ", disabled);
+    //       register.removeAttribute("disabled");
+    //       register.classList.remove("disabled");
+    //     }
+    //   });
+    //   // inputs[2].value
+    // }
+  </script>
+</html>
+
+<!-- <html>
+<head>
+    <meta charset="utf-8" />
+    <script src="https://unpkg.com/pdf-lib@1.4.0"></script>
+    <script src="https://unpkg.com/downloadjs@1.4.7"></script>
+  </head>
+
+  <body>
+    <p>
+      Click the button to modify an existing PDF document with
+      <code>pdf-lib</code>
+    </p>
+    <button onclick="modifyPdf()">Modify PDF</button>
+    <p class="small">(Your browser will download the resulting file)</p>
+  </body>
+
+  <script>
+    const { degrees, PDFDocument, rgb, StandardFonts } = PDFLib;
+
+    async function modifyPdf() {
+      // Fetch an existing PDF document
+      const url = "https://pdf-lib.js.org/assets/with_update_sections.pdf";
+      const existingPdfBytes = await fetch(url).then((res) =>
+        res.arrayBuffer()
+      );
+
+      // Load a PDFDocument from the existing PDF bytes
+      const pdfDoc = await PDFDocument.load(existingPdfBytes);
+
+      // Embed the Helvetica font
+      const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
+
+      // Get the first page of the document
+      const pages = pdfDoc.getPages();
+      const firstPage = pages[0];
+
+      // Get the width and height of the first page
+      const { width, height } = firstPage.getSize();
+
+      // Draw a string of text diagonally across the first page
+      firstPage.drawText("This text was added with JavaScript!", {
+        x: 5,
+        y: height / 2 + 300,
+        size: 50,
+        font: helveticaFont,
+        color: rgb(0.95, 0.1, 0.1),
+        rotate: degrees(-45),
+      });
+
+      // Remove the exisiting content -> Make it blank(empty)
+      // Add title BigBusinessApp at Top-Center
+      // (On Left Side)->From Details
+      // (Right Side) -> To Details
+
+      // Serialize the PDFDocument to bytes (a Uint8Array)
+      const pdfBytes = await pdfDoc.save();
+
+      // Trigger the browser to download the PDF document
+      download(pdfBytes, "pdf-lib_modification_example.pdf", "application/pdf");
+
+      // const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
+      // document.getElementById("pdf").src = pdfDataUri;
+    }
+  </script>
+</html> -->
+
+<!-- <html>
+  <head>
+    <title>Finance</title>
+    bootstrap css
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+    <style>
+      .reminders-container {
+        border: 1px solid black;
+        padding: 10px;
+        display: flex;
+        align-content: space-around;
+      }
+      .reminder-box {
+        border: 1px solid aqua;
+        padding: 10px;
+        margin: 10px;
+      }
+      .add-reminder__button {
+        display: flex;
+        border-radius: 100%;
+        font-size: 100px;
+      }
+      #pt {
+        color: #ff0000;
+      }
+      .sq {
+        min-width: 100px;
+        height: 100px;
+        border: 1px solid black;
+        margin-right: 3px;
+      }
+      .sqs {
+        border: 3px solid aqua;
+        padding: 10px;
+        max-width: 100%;
+        display: flex;
+      }
+      .sq {
+        flex: 1;
+      }
+      .sq-1 {
+        flex: 1;
+        height: 200px;
+      }
+      .sq-2 {
+        flex: 2;
+      }
+      .sq-3 {
+        flex: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sqs">
+      <input class="sq sq-1" />
+      <input class="sq sq-2" />
+      <input class="sq sq-3" />
+      <input class="sq sq-4" />
+    </div>
+    <p style="color: #ffff00" id="pt">som etext</p>
+    <div class="reminders-container">
+      <div class="reminder-box">
+        <div class="reminder-title">
+          <label>Name</label><br />
+          <input
+            type="text"
+            placeholder="Enter the name of your ???"
+            value="Title"
+          />
+        </div>
+        <br />
+        <div class="reminder-amount">
+          <label>Amount</label><br />
+          <input
+            type="number"
+            placeholder="Enter the value of your ???"
+            value="00"
+          />
+        </div>
+        <br />
+        <div class="reminder-date">
+          <label>Due Date</label><br />
+          <input type="date" placeholder="Enter the date of your ???" />
+        </div>
+        <br />
+        <button>Delete</button>
+        <button>Edit</button>
+        <h6>*PLEASE SAVE TO UPDATE YOUR CHANGES</h6>
+      </div>
+      <div class="reminder-box add-reminder">
+        <button class="add-reminder__button">+</button>
+      </div>
+    </div>
+    <form action="/signup">
+      <div>
+        <label for="username">User Name</label>
+        <input type="text" name="username" required />
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input type="password" name="password" />
+      </div>
+      <div>
+        <label for="r_password">Retype Password</label>
+        <input type="password" name="r_password" />
+      </div>
+      <div>
+        <label for="duedate">Email</label>
+        <input type="date" name="duedate" min="2021-01-22" />
+      </div>
+      <input type="submit" value="Signup" disabled="disabled" />
+    </form>
+
+    Button trigger modal
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-toggle="modal"
+      data-target="#exampleModalCenter"
+    >
+      Launch demo modal
+    </button>
+
+    Modal
+    <div
+      class="modal fade"
+      id="exampleModalCenter"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">...</div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  Bootstrap js script
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    var form = document.querySelector("form");
+    var inputs = document.querySelectorAll("input");
+    var required_inputs = document.querySelectorAll("input[required]");
+    var register = document.querySelector('input[type="submit"]');
+    form.addEventListener("keyup", function (e) {
+      var disabled = false;
+      inputs.forEach(function (input, index) {
+        if (input.value === "" || !input.value.replace(/\s/g, "").length) {
+          disabled = true;
+        }
+      });
+      if (disabled) {
+        register.setAttribute("disabled", "disabled");
+      } else {
+        register.removeAttribute("disabled");
+      }
+    });
+  </script>
+</html>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      #overlay {
+        position: fixed;
+        display: none;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 2;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="overlay" onclick="off()"></div>
+
+    <div style="padding: 20px">
+      <h2>Overlay</h2>
+      <p>
+        Add an overlay effect to the page content (100% width and height with a
+        black background color with 50% opacity).
+      </p>
+      <button onclick="on()">Turn on overlay effect</button>
+    </div>
+
+    <script>
+      function on() {
+        document.getElementById("overlay").style.display = "block";
+      }
+
+      function off() {
+        document.getElementById("overlay").style.display = "none";
+      }
+    </script>
+  </body>
+</html>
+ -->

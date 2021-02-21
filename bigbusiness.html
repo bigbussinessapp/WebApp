@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reminder</title>
+    <!-- bootstrap css -->
+    <!-- <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    /> -->
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <h3>PAYMENT REMINDERS</h3>
+    <div class="container">
+      <div id="remindersList" class="container-box reminder-container">
+        <!-- <div class="card reminder-card" id="0-r">
+          
+          commment till closing form tag
+          <form action="" class="add-reminder__form">
+          <label for="name" class="add-reminder__input">Name</label>
+          <input type="text" name="name" value="Name" readonly />
+          <label for="amount" class="add-reminder__input">Amount</label>
+          <input type="text" name="amount" value="0.0" readonly />
+          <label for="duedate" class="add-reminder__input">Due Date</label>
+          <input type="text" name="duedate" value="12/01/2021" readonly />
+        </form>
+
+          <p>Name: <span>NAME</span></p>
+          <p>Amount: <span>0.0</span></p>
+          <p>Due Date: <span>12-01-2021</span></p>
+          <button onclick="cancelReminder(0)">DELETE</button>
+          <button onclick="changeDue(0)">Change Due</button>
+          <button onclick="editReminder(0)">EDIT</button>
+        </div> -->
+      </div>
+      <div class="add-reminder">
+        <button
+          class="add-reminder__button"
+          title="ADD A NEW REMINDER"
+          onclick="addReminder()"
+        >
+          ➕
+        </button>
+      </div>
+    </div>
+    <div class="reminder-form-container" style="display: none">
+      <div class="reminder-card new-reminder__form">
+        <label for="person-name">NAME</label>
+        <input type="text" name="person-name" value="" required onfocus />
+        <label for="amount">AMOUNT</label>
+        <input type="number" name="amount" min="0" value="" required />
+        <label for="duedate">DUE DATE</label>
+        <input type="date" name="duedate" min="2021-01-22" value="" required />
+        <button>CANCEL</button>
+        <button class="disabled" disabled>SAVE</button>
+      </div>
+    </div>
+    <h3>PAYMENT DUES</h3>
+    <div class="container-box due-container">
+      <!-- <div class="card due-card" id="0">
+        <p>Name: <span>NAME</span></p>
+        <p>Amount: <span>0.0</span></p>
+        <p>Due Date: <span>12-01-2021</span></p>
+        <button onclick="alert(`Clicked`)">PAY NOW</button>
+      </div> -->
+    </div>
+  </body>
+  <!-- Bootstrap js script -->
+  <!-- <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+    crossorigin="anonymous"
+  ></script> -->
+  <script src="./script.js"></script>
+</html>
